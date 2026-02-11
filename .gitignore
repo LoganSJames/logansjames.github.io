@@ -1,5 +1,7 @@
 .claude/
 *.mov
 *.mp4
+*.ai
+*.eps
 .DS_Store
 Thumbs.db
