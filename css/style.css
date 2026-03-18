@@ -1188,9 +1188,24 @@ ul, ol {
   margin-bottom: var(--space-lg);
 }
 
+.event-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.event-title-icon {
+  width: auto;
+  height: 50px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
 .event-header h2 {
   font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 0;
 }
 
 .event-organizers {
@@ -1324,6 +1339,10 @@ ul, ol {
 
   .event-logos img {
     height: 45px;
+  }
+
+  .event-title-icon {
+    display: none;
   }
 }
 
