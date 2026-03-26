@@ -1272,6 +1272,13 @@ ul, ol {
   font-size: 0.95rem;
   color: var(--color-primary);
   font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+.event-date {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  font-weight: 700;
 }
 
 .event-description {
