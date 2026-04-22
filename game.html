@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Acoustic Preferences — an interactive game exploring shared acoustic preferences between humans and other animals. Based on research published in Science.">
+  <meta property="og:title" content="Acoustic Preferences — Logan S. James">
+  <meta property="og:description" content="Do you agree with other animals? Test your acoustic preferences.">
+  <meta property="og:type" content="website">
+  <title>Acoustic Preferences — Logan S. James</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-brand">Logan S. James</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Research</a>
+        <a href="publications.html" class="nav-link">Publications</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="about.html" class="nav-link">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="game-container">
+
+      <!-- Intro Screen -->
+      <div class="game-screen game-screen-active" id="screen-intro">
+        <div class="game-intro">
+          <h1 class="game-title">Acoustic Preferences</h1>
+          <p class="game-subtitle">Do you agree with other animals?</p>
+          <p class="game-intro-text">Animals communicate with sound, and many prefer certain calls over others. But do humans share those preferences? In this game, you'll hear two sounds from the same species and pick the one you like more. Then we'll reveal which sound the animals themselves preferred.</p>
+          <p class="game-intro-text game-intro-details">Based on research with ~4,000 human participants, published in <em>Science</em>. <a href="https://doi.org/10.1126/science.aea1202" target="_blank" rel="noopener">Read the paper</a></p>
+          <p class="game-authors"><a href="https://logansjames.github.io/">Logan S. James</a>, <a href="https://sarahwoolleylab.wordpress.com/" target="_blank" rel="noopener">Sarah C. Woolley</a>, <a href="https://sakatasongbirdlab.wordpress.com/" target="_blank" rel="noopener">Jon T. Sakata</a>, <a href="https://courtney-b-hilton.netlify.app/" target="_blank" rel="noopener">Courtney B. Hilton</a>, <a href="https://sites.utexas.edu/the-ryan-lab/" target="_blank" rel="noopener">Michael J. Ryan</a> &amp; <a href="https://mehr.nz/" target="_blank" rel="noopener">Samuel A. Mehr</a></p>
+          <button class="game-btn game-btn-start" id="btn-start">Start Game</button>
+          <p class="game-intro-note">6 rounds &middot; Best with headphones or speakers</p>
+
+          <div class="game-logos">
+            <img src="images/events/logos/mcgill-logo.png" alt="McGill University">
+            <img src="images/events/logos/crblm-logo.png" alt="CRBLM">
+            <img src="images/events/logos/ut-austin-logo.png" alt="UT Austin">
+            <img src="images/events/logos/stri-logo.png" alt="Smithsonian Tropical Research Institute">
+            <img src="images/events/logos/yale-logo.png" alt="Yale University">
+            <img src="images/events/logos/auckland-logo.png" alt="University of Auckland">
+          </div>
+
+          <p class="game-credits">Sounds provided courtesy of: Robin Tinghitella, Morgan Gustison, Thore Bergman, Martin J. Fouquette, Jr., Stephen Nowicki, Susan Peters, Elizabeth Adkins-Regan &amp; Michael Ryan</p>
+        </div>
+      </div>
+
+      <!-- Round Screen (reused for all 6 rounds) -->
+      <div class="game-screen" id="screen-round">
+        <div class="game-round-header">
+          <span class="game-progress" id="game-progress">1 / 6</span>
+          <h2 class="game-question">Which sound do you like more?</h2>
+        </div>
+
+        <div class="game-play-area">
+          <!-- Sound A (left) -->
+          <button class="game-sound-btn" id="sound-a-btn" disabled>
+            <div class="game-sound-ring">
+              <div class="game-sound-waves game-sound-waves-left">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="game-sound-icon">A</div>
+              <div class="game-sound-waves game-sound-waves-right">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <span class="game-sound-label">Sound A</span>
+          </button>
+
+          <div class="game-vs">vs</div>
+
+          <!-- Sound B (right) -->
+          <button class="game-sound-btn" id="sound-b-btn" disabled>
+            <div class="game-sound-ring">
+              <div class="game-sound-waves game-sound-waves-left">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="game-sound-icon">B</div>
+              <div class="game-sound-waves game-sound-waves-right">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <span class="game-sound-label">Sound B</span>
+          </button>
+        </div>
+
+        <div class="game-listening-status" id="listening-status">
+          <p>Listen to both sounds, then pick which one you like more</p>
+        </div>
+
+        <div class="game-playback-controls">
+          <button class="game-btn game-btn-replay" id="btn-replay" style="display:none;">Replay sounds</button>
+        </div>
+      </div>
+
+      <!-- Reveal Screen -->
+      <div class="game-screen" id="screen-reveal">
+        <div class="game-reveal">
+          <span class="game-progress" id="reveal-progress">1 / 6</span>
+
+          <div class="game-reveal-result" id="reveal-result">
+            <!-- Filled dynamically -->
+          </div>
+
+          <div class="game-reveal-animal">
+            <img id="reveal-animal-img" src="" alt="">
+            <div class="game-reveal-info">
+              <h2 id="reveal-species"></h2>
+              <p class="game-reveal-latin" id="reveal-latin"></p>
+              <p class="game-reveal-detail" id="reveal-detail"></p>
+              <p class="game-reveal-agreement" id="reveal-agreement"></p>
+              <p class="game-reveal-credit" id="reveal-credit"></p>
+            </div>
+          </div>
+
+          <button class="game-btn game-btn-next" id="btn-next">Next Round</button>
+        </div>
+      </div>
+
+      <!-- Summary Screen -->
+      <div class="game-screen" id="screen-summary">
+        <div class="game-summary">
+          <h1 class="game-title">Results</h1>
+          <div class="game-score" id="game-score"></div>
+          <p class="game-summary-text">In our study of ~4,000 human participants, people agreed with other animals above chance, suggesting that some aspects of acoustic aesthetics may be shared across species.</p>
+          <blockquote class="game-darwin-quote">
+            <p>some animals have &ldquo;nearly the same taste for the beautiful as we have.&rdquo;</p>
+            <cite>&mdash; Charles Darwin (1871)</cite>
+          </blockquote>
+          <div class="game-summary-actions">
+            <button class="game-btn game-btn-start" id="btn-restart">Play Again</button>
+            <a href="https://doi.org/10.1126/science.aea1202" class="game-btn game-btn-outline" target="_blank" rel="noopener">Read the Paper</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-info">
+        <h3>Logan S. James</h3>
+        <p>Comparative approaches for acoustic communication.</p>
+        <p><a href="mailto:logansmithjames@gmail.com">logansmithjames@gmail.com</a></p>
+      </div>
+      <div class="footer-links">
+        <h3>Connect</h3>
+        <div class="social-links">
+          <a href="https://scholar.google.com/citations?user=cQosjtYAAAAJ&hl=en" class="social-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+            Google Scholar
+          </a>
+          <a href="https://bsky.app/profile/loganjames.bsky.social" class="social-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.6 3.476 6.178 3.138-4.318.665-7.245 2.315-2.137 8.072C9.571 26.072 11.225 20.1 12 17.4c.775 2.7 2.287 8.572 7.335 4.057 5.108-5.757 2.18-7.407-2.138-8.072 2.578.338 5.394-.511 6.178-3.138.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
+            Bluesky
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Logan S. James. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
