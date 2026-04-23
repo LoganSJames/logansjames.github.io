@@ -1,5 +1,5 @@
 /* ============================================
-   Calls of the Wild — Game Logic
+   Acoustic Preferences — Game Logic
    ============================================ */
 
 (function () {
@@ -15,7 +15,6 @@
       soundGood: 'files/sounds/hourglass_f_Good_animalSounds_011.mp3',
       soundBad: 'files/sounds/hourglass_f_Bad_animalSounds_012.mp3',
       goodLabel: 'A',
-      detail: 'These frogs prefer calls with extra "clicks" added.',
       humansAgree: true
     },
     {
@@ -26,7 +25,6 @@
       soundGood: 'files/sounds/ZF_ccc_Good_animalSounds_067.mp3',
       soundBad: 'files/sounds/ZF_ccc_Bad_animalSounds_068.mp3',
       goodLabel: 'A',
-      detail: 'Zebra finches prefer songs learned during development over "isolate" songs produced without learning.',
       humansAgree: false
     },
     {
@@ -37,7 +35,6 @@
       soundGood: 'files/sounds/Cricket_l_Good_animalSounds_023.mp3',
       soundBad: 'files/sounds/Cricket_l_Bad_animalSounds_024.mp3',
       goodLabel: 'A',
-      detail: 'Crickets prefer "chirps" over "purrs" when choosing a mate.',
       humansAgree: true
     },
     {
@@ -48,7 +45,6 @@
       soundGood: 'files/sounds/SongSparrow_qrt_Good_animalSounds_170.mp3',
       soundBad: 'files/sounds/SongSparrow_qrt_Bad_animalSounds_171.mp3',
       goodLabel: 'A',
-      detail: 'Song sparrows prefer some individuals over others.',
       humansAgree: true
     },
     {
@@ -59,7 +55,6 @@
       soundGood: 'files/sounds/Gelada_sss_Good_animalSounds_080.mp3',
       soundBad: 'files/sounds/Gelada_sss_Bad_animalSounds_081.mp3',
       goodLabel: 'A',
-      detail: 'Geladas prefer more "complex" vocalizations over more simple "grunts".',
       humansAgree: false
     },
     {
@@ -70,7 +65,6 @@
       soundGood: 'files/sounds/tungara_be_Good_animalSounds_203.mp3',
       soundBad: 'files/sounds/tungara_be_Bad_animalSounds_031.mp3',
       goodLabel: 'A',
-      detail: 'Female t\u00fangara frogs strongly prefer calls with more "chucks" appended to the whine.',
       humansAgree: true
     }
   ];
@@ -83,14 +77,121 @@
     }
   });
 
+  // --- i18n ---
+  var i18n = window.GameI18n || {};
+
+  // Detect browser language, fall back to English
+  var browserLang = (navigator.language || 'en').split('-')[0];
+  var savedLang = localStorage.getItem('gameLang');
+  var currentLang = (savedLang && i18n[savedLang]) ? savedLang :
+                    (i18n[browserLang] ? browserLang : 'en');
+
+  function t(key) {
+    var lang = i18n[currentLang] || i18n.en;
+    return (lang && lang[key] !== undefined) ? lang[key] : (i18n.en[key] || key);
+  }
+
+  function tSpecies(englishName) {
+    var lang = i18n[currentLang] || i18n.en;
+    var sp = lang && lang.species && lang.species[englishName];
+    return sp || (i18n.en.species && i18n.en.species[englishName]) || { name: englishName, nameInText: englishName, detail: '' };
+  }
+
+  function fill(template, vars) {
+    return template.replace(/\{(\w+)\}/g, function (_, key) {
+      return vars[key] !== undefined ? vars[key] : '';
+    });
+  }
+
+  // Update all static translatable text on the page
+  function applyLanguage() {
+    document.documentElement.lang = currentLang;
+
+    // Intro screen
+    var introTitle = document.getElementById('intro-title');
+    var introSubtitle = document.getElementById('intro-subtitle');
+    var introText = document.getElementById('intro-text');
+    var introDetails = document.getElementById('intro-details');
+    var introNote = document.getElementById('intro-note');
+    var creditsLabel = document.getElementById('credits-label');
+
+    if (introTitle) introTitle.textContent = t('title');
+    if (introSubtitle) introSubtitle.textContent = t('subtitle');
+    if (introText) introText.textContent = t('introText');
+    if (introDetails) introDetails.innerHTML = t('detailsHtml');
+    if (introNote) introNote.textContent = t('roundNote');
+    if (creditsLabel) creditsLabel.textContent = t('creditsLabel');
+
+    var btnStart = document.getElementById('btn-start');
+    if (btnStart) btnStart.textContent = t('startGame');
+
+    // Round screen
+    var gameQuestion = document.getElementById('game-question');
+    var labelA = document.getElementById('label-a');
+    var labelB = document.getElementById('label-b');
+    var gameVs = document.getElementById('game-vs');
+    var btnReplay = document.getElementById('btn-replay');
+
+    if (gameQuestion) gameQuestion.textContent = t('whichSound');
+    if (labelA) labelA.textContent = t('soundA');
+    if (labelB) labelB.textContent = t('soundB');
+    if (gameVs) gameVs.textContent = t('vs');
+    if (btnReplay) btnReplay.textContent = t('replay');
+
+    // Update listening status if round is active
+    var statusP = document.querySelector('#listening-status p');
+    if (statusP) {
+      var soundABtn = document.getElementById('sound-a-btn');
+      if (soundABtn && soundABtn.classList.contains('enabled')) {
+        statusP.textContent = t('tapPrompt');
+      } else {
+        statusP.textContent = t('listenPrompt');
+      }
+    }
+
+    // Reveal screen — re-render if active
+    var screenReveal = document.getElementById('screen-reveal');
+    if (screenReveal && screenReveal.classList.contains('game-screen-active') && lastReveal) {
+      renderRevealContent(lastReveal.chosen, lastReveal.correct, lastReveal.round);
+    }
+
+    // Summary screen
+    var summaryTitle = document.getElementById('summary-title');
+    var summaryText = document.getElementById('summary-text');
+    var darwinQuote = document.getElementById('darwin-quote');
+    var darwinCite = document.getElementById('darwin-cite');
+    var btnRestart = document.getElementById('btn-restart');
+    var btnPaper = document.getElementById('btn-paper');
+
+    if (summaryTitle) summaryTitle.textContent = t('results');
+    if (summaryText) summaryText.textContent = t('summaryText');
+    if (darwinQuote) darwinQuote.textContent = t('darwinQuote');
+    if (darwinCite) darwinCite.textContent = t('darwinCite');
+    if (btnRestart) btnRestart.textContent = t('playAgain');
+    if (btnPaper) btnPaper.textContent = t('readPaper');
+
+    // Re-render score if summary is active
+    var screenSummary = document.getElementById('screen-summary');
+    if (screenSummary && screenSummary.classList.contains('game-screen-active')) {
+      renderScore();
+    }
+
+    // Update btn-next text if reveal is active
+    if (screenReveal && screenReveal.classList.contains('game-screen-active')) {
+      var btnNext = document.getElementById('btn-next');
+      if (btnNext) {
+        btnNext.textContent = (currentRound < 5) ? t('nextRound') : t('seeResults');
+      }
+    }
+  }
+
   // --- State ---
   var currentRound = 0;
   var score = 0;
   var audioA = null;
   var audioB = null;
-  var hasPlayedA = false;
-  var hasPlayedB = false;
   var isPlaying = false;
+  var lastReveal = null; // stored so language switch can re-render reveal screen
 
   // --- DOM Elements ---
   var screenIntro = document.getElementById('screen-intro');
@@ -98,7 +199,6 @@
   var screenReveal = document.getElementById('screen-reveal');
   var screenSummary = document.getElementById('screen-summary');
 
-  var btnStart = document.getElementById('btn-start');
   var btnNext = document.getElementById('btn-next');
   var btnRestart = document.getElementById('btn-restart');
   var btnReplay = document.getElementById('btn-replay');
@@ -130,27 +230,17 @@
   function playSound(which) {
     stopAll();
     isPlaying = true;
-    var audio, btn;
-    if (which === 'A') {
-      audio = audioA;
-      btn = soundABtn;
-    } else {
-      audio = audioB;
-      btn = soundBBtn;
-    }
+    var audio = (which === 'A') ? audioA : audioB;
+    var btn   = (which === 'A') ? soundABtn : soundBBtn;
+
     btn.classList.add('playing');
     audio.play();
     audio.onended = function () {
       btn.classList.remove('playing');
       isPlaying = false;
       if (which === 'A') {
-        hasPlayedA = true;
-        // Auto-play B after a short pause
-        setTimeout(function () {
-          playSound('B');
-        }, 500);
+        setTimeout(function () { playSound('B'); }, 500);
       } else {
-        hasPlayedB = true;
         enableChoices();
       }
     };
@@ -161,15 +251,13 @@
     soundBBtn.classList.add('enabled');
     soundABtn.disabled = false;
     soundBBtn.disabled = false;
-    listeningStatus.querySelector('p').textContent = 'Tap the sound you liked more!';
+    listeningStatus.querySelector('p').textContent = t('tapPrompt');
     btnReplay.style.display = 'inline-block';
   }
 
   // --- Round Setup ---
   function startRound() {
     var round = rounds[currentRound];
-    hasPlayedA = false;
-    hasPlayedB = false;
 
     gameProgress.textContent = (currentRound + 1) + ' / 6';
 
@@ -178,7 +266,7 @@
     soundABtn.disabled = true;
     soundBBtn.disabled = true;
     btnReplay.style.display = 'none';
-    listeningStatus.querySelector('p').textContent = 'Listen to both sounds, then pick your favorite';
+    listeningStatus.querySelector('p').textContent = t('listenPrompt');
 
     // Load audio: good sound goes to whichever button goodLabel says
     if (round.goodLabel === 'A') {
@@ -195,10 +283,7 @@
 
     showScreen(screenRound);
 
-    // Auto-play sound A after a short delay
-    setTimeout(function () {
-      playSound('A');
-    }, 800);
+    setTimeout(function () { playSound('A'); }, 800);
   }
 
   // --- Choice ---
@@ -222,76 +307,96 @@
 
     if (correct) score++;
 
-    // Show reveal after a brief moment
     setTimeout(function () {
       showReveal(chosen, correct, round);
     }, 600);
   }
 
   // --- Reveal ---
-  function showReveal(chosen, correct, round) {
-    revealProgress.textContent = (currentRound + 1) + ' / 6';
-
+  function renderRevealContent(chosen, correct, round) {
+    var sp = tSpecies(round.species);
     var resultDiv = document.getElementById('reveal-result');
     if (correct) {
-      resultDiv.innerHTML = '<h3 class="result-match">You agreed with the ' + round.species + '!</h3>';
+      resultDiv.innerHTML = '<h3 class="result-match">' +
+        fill(t('agreed'), { species: sp.nameInText }) + '</h3>';
     } else {
-      resultDiv.innerHTML = '<h3 class="result-mismatch">You disagreed with the ' + round.species + '!</h3>';
+      resultDiv.innerHTML = '<h3 class="result-mismatch">' +
+        fill(t('disagreed'), { species: sp.nameInText }) + '</h3>';
     }
+
+    document.getElementById('reveal-species').textContent = sp.name;
+    document.getElementById('reveal-latin').textContent = round.latin;
+    document.getElementById('reveal-detail').textContent = sp.detail;
+
+    var agreementEl = document.getElementById('reveal-agreement');
+    if (round.humansAgree) {
+      agreementEl.textContent = t('humansAgreed');
+      agreementEl.className = 'game-reveal-agreement agreed';
+    } else {
+      agreementEl.textContent = t('humansDisagreed');
+      agreementEl.className = 'game-reveal-agreement disagreed';
+    }
+
+    document.getElementById('reveal-credit').textContent = round.credit;
+    btnNext.textContent = (currentRound < 5) ? t('nextRound') : t('seeResults');
+  }
+
+  function showReveal(chosen, correct, round) {
+    lastReveal = { chosen: chosen, correct: correct, round: round };
+    revealProgress.textContent = (currentRound + 1) + ' / 6';
 
     var revealImg = document.getElementById('reveal-animal-img');
     revealImg.style.opacity = '0';
     revealImg.src = round.image;
     revealImg.alt = round.species;
     revealImg.onload = function () { revealImg.style.opacity = '1'; };
-    document.getElementById('reveal-species').textContent = round.species;
-    document.getElementById('reveal-latin').textContent = round.latin;
-    document.getElementById('reveal-detail').textContent = round.detail;
 
-    var agreementEl = document.getElementById('reveal-agreement');
-    if (round.humansAgree) {
-      agreementEl.textContent = 'Most humans agreed with the animals on this one.';
-      agreementEl.className = 'game-reveal-agreement agreed';
-    } else {
-      agreementEl.textContent = 'Most humans disagreed with the animals on this one!';
-      agreementEl.className = 'game-reveal-agreement disagreed';
-    }
-
-    document.getElementById('reveal-credit').textContent = round.credit;
-
-    // Button text
-    if (currentRound < 5) {
-      btnNext.textContent = 'Next Round';
-    } else {
-      btnNext.textContent = 'See Results';
-    }
-
+    renderRevealContent(chosen, correct, round);
     showScreen(screenReveal);
   }
 
   // --- Summary ---
-  function showSummary() {
+  function renderScore() {
     var scoreDiv = document.getElementById('game-score');
-    scoreDiv.innerHTML = '<span class="score-number">' + score + ' / 6</span>' +
-      'You agreed with the animals on ' + score + ' out of 6 rounds.';
+    if (scoreDiv) {
+      scoreDiv.innerHTML = '<span class="score-number">' + score + ' / 6</span>' +
+        fill(t('scoreLabel'), { score: score });
+    }
+  }
+
+  function showSummary() {
+    renderScore();
     showScreen(screenSummary);
   }
 
+  // --- Language Selector ---
+  var langSelect = document.getElementById('lang-select');
+  if (langSelect) {
+    // Set initial value
+    langSelect.value = currentLang;
+
+    langSelect.addEventListener('change', function () {
+      currentLang = langSelect.value;
+      localStorage.setItem('gameLang', currentLang);
+      applyLanguage();
+    });
+  }
+
+  // Apply language on load
+  applyLanguage();
+
   // --- Event Listeners ---
-  btnStart.addEventListener('click', function () {
+  function resetAndStart() {
     currentRound = 0;
     score = 0;
-    // Re-randomize sides
+    lastReveal = null;
     rounds.forEach(function (round) {
-      // Reset to default
-      round.goodLabel = 'A';
-      // Then randomize
-      if (Math.random() < 0.5) {
-        round.goodLabel = 'B';
-      }
+      round.goodLabel = (Math.random() < 0.5) ? 'B' : 'A';
     });
     startRound();
-  });
+  }
+
+  document.getElementById('btn-start').addEventListener('click', resetAndStart);
 
   soundABtn.addEventListener('click', function () {
     if (soundABtn.classList.contains('enabled') && !isPlaying) {
@@ -312,10 +417,8 @@
     soundABtn.disabled = true;
     soundBBtn.disabled = true;
     btnReplay.style.display = 'none';
-    listeningStatus.querySelector('p').textContent = 'Listen to both sounds, then pick your favorite';
-    setTimeout(function () {
-      playSound('A');
-    }, 300);
+    listeningStatus.querySelector('p').textContent = t('listenPrompt');
+    setTimeout(function () { playSound('A'); }, 300);
   });
 
   btnNext.addEventListener('click', function () {
@@ -327,16 +430,6 @@
     }
   });
 
-  btnRestart.addEventListener('click', function () {
-    currentRound = 0;
-    score = 0;
-    rounds.forEach(function (round) {
-      round.goodLabel = 'A';
-      if (Math.random() < 0.5) {
-        round.goodLabel = 'B';
-      }
-    });
-    startRound();
-  });
+  btnRestart.addEventListener('click', resetAndStart);
 
 })();

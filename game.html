@@ -35,16 +35,29 @@
   <main id="main">
     <div class="game-container">
 
+      <!-- Language Selector -->
+      <div class="game-lang-selector">
+        <select id="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="fr">Fran&#231;ais</option>
+          <option value="es">Espa&#241;ol</option>
+          <option value="pt">Portugu&#234;s</option>
+          <option value="de">Deutsch</option>
+          <option value="zh">&#20013;&#25991;</option>
+          <option value="ja">&#26085;&#26412;&#35486;</option>
+        </select>
+      </div>
+
       <!-- Intro Screen -->
       <div class="game-screen game-screen-active" id="screen-intro">
         <div class="game-intro">
-          <h1 class="game-title">Acoustic Preferences</h1>
-          <p class="game-subtitle">Do you agree with other animals?</p>
-          <p class="game-intro-text">Animals communicate with sound, and many prefer certain calls over others. But do humans share those preferences? In this game, you'll hear two sounds from the same species and pick the one you like more. Then we'll reveal which sound the animals themselves preferred.</p>
-          <p class="game-intro-text game-intro-details">Based on research with ~4,000 human participants, published in <em>Science</em>. <a href="https://doi.org/10.1126/science.aea1202" target="_blank" rel="noopener">Read the paper</a></p>
+          <h1 class="game-title" id="intro-title">Acoustic Preferences</h1>
+          <p class="game-subtitle" id="intro-subtitle">Do you agree with other animals?</p>
+          <p class="game-intro-text" id="intro-text">Animals communicate with sound, and many prefer certain calls over others. But do humans share those preferences? In this game, you'll hear two sounds from the same species and pick the one you like more. Then we'll reveal which sound the animals themselves preferred.</p>
+          <p class="game-intro-text game-intro-details" id="intro-details">Based on research with ~4,000 human participants, published in <em>Science</em>. <a href="https://doi.org/10.1126/science.aea1202" target="_blank" rel="noopener">Read the paper</a></p>
           <p class="game-authors"><a href="https://logansjames.github.io/">Logan S. James</a>, <a href="https://sarahwoolleylab.wordpress.com/" target="_blank" rel="noopener">Sarah C. Woolley</a>, <a href="https://sakatasongbirdlab.wordpress.com/" target="_blank" rel="noopener">Jon T. Sakata</a>, <a href="https://courtney-b-hilton.netlify.app/" target="_blank" rel="noopener">Courtney B. Hilton</a>, <a href="https://sites.utexas.edu/the-ryan-lab/" target="_blank" rel="noopener">Michael J. Ryan</a> &amp; <a href="https://mehr.nz/" target="_blank" rel="noopener">Samuel A. Mehr</a></p>
           <button class="game-btn game-btn-start" id="btn-start">Start Game</button>
-          <p class="game-intro-note">6 rounds &middot; Best with headphones or speakers</p>
+          <p class="game-intro-note" id="intro-note">6 rounds &middot; Best with headphones</p>
 
           <div class="game-logos">
             <img src="images/events/logos/mcgill-logo.png" alt="McGill University">
@@ -55,7 +68,7 @@
             <img src="images/events/logos/auckland-logo.png" alt="University of Auckland">
           </div>
 
-          <p class="game-credits">Sounds provided courtesy of: Robin Tinghitella, Morgan Gustison, Thore Bergman, Martin J. Fouquette, Jr., Stephen Nowicki, Susan Peters, Elizabeth Adkins-Regan &amp; Michael Ryan</p>
+          <p class="game-credits"><span id="credits-label">Sounds provided courtesy of:</span> Robin Tinghitella, Morgan Gustison, Thore Bergman, Martin J. Fouquette, Jr., Stephen Nowicki, Susan Peters, Elizabeth Adkins-Regan &amp; Michael Ryan</p>
         </div>
       </div>
 
@@ -63,7 +76,7 @@
       <div class="game-screen" id="screen-round">
         <div class="game-round-header">
           <span class="game-progress" id="game-progress">1 / 6</span>
-          <h2 class="game-question">Which sound do you like more?</h2>
+          <h2 class="game-question" id="game-question">Which sound do you like more?</h2>
         </div>
 
         <div class="game-play-area">
@@ -78,10 +91,10 @@
                 <span></span><span></span><span></span>
               </div>
             </div>
-            <span class="game-sound-label">Sound A</span>
+            <span class="game-sound-label" id="label-a">Sound A</span>
           </button>
 
-          <div class="game-vs">vs</div>
+          <div class="game-vs" id="game-vs">vs</div>
 
           <!-- Sound B (right) -->
           <button class="game-sound-btn" id="sound-b-btn" disabled>
@@ -94,7 +107,7 @@
                 <span></span><span></span><span></span>
               </div>
             </div>
-            <span class="game-sound-label">Sound B</span>
+            <span class="game-sound-label" id="label-b">Sound B</span>
           </button>
         </div>
 
@@ -134,16 +147,16 @@
       <!-- Summary Screen -->
       <div class="game-screen" id="screen-summary">
         <div class="game-summary">
-          <h1 class="game-title">Results</h1>
+          <h1 class="game-title" id="summary-title">Results</h1>
           <div class="game-score" id="game-score"></div>
-          <p class="game-summary-text">In our study of ~4,000 human participants, people agreed with other animals above chance, suggesting that some aspects of acoustic aesthetics may be shared across species.</p>
+          <p class="game-summary-text" id="summary-text">In our study of ~4,000 human participants, people agreed with other animals above chance, suggesting that some aspects of acoustic aesthetics may be shared across species.</p>
           <blockquote class="game-darwin-quote">
-            <p>some animals have &ldquo;nearly the same taste for the beautiful as we have.&rdquo;</p>
-            <cite>&mdash; Charles Darwin (1871)</cite>
+            <p id="darwin-quote">some animals have &ldquo;nearly the same taste for the beautiful as we have.&rdquo;</p>
+            <cite id="darwin-cite">&mdash; Charles Darwin (1871)</cite>
           </blockquote>
           <div class="game-summary-actions">
             <button class="game-btn game-btn-start" id="btn-restart">Play Again</button>
-            <a href="https://doi.org/10.1126/science.aea1202" class="game-btn game-btn-outline" target="_blank" rel="noopener">Read the Paper</a>
+            <a href="https://doi.org/10.1126/science.aea1202" class="game-btn game-btn-outline" id="btn-paper" target="_blank" rel="noopener">Read the Paper</a>
           </div>
         </div>
       </div>
@@ -179,6 +192,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/game-i18n.js"></script>
   <script src="js/game.js"></script>
 </body>
 </html>
