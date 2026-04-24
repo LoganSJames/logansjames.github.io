@@ -1135,6 +1135,23 @@ ul, ol {
   font-size: 1.1rem;
 }
 
+/* Wavelength logo in bio */
+.wavelength-logo-link {
+  display: inline-block;
+  text-decoration: none;
+}
+.wavelength-logo {
+  display: block;
+  height: 72px;
+  width: auto;
+  margin-top: 0.15rem;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.wavelength-logo-link:hover .wavelength-logo {
+  opacity: 1;
+}
+
 /* CV Download */
 .cv-download {
   text-align: center;
