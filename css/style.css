@@ -1348,7 +1348,7 @@ ul, ol {
 
 .event-section-title {
   text-align: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-primary);
@@ -1435,6 +1435,195 @@ ul, ol {
   .event-title-icon {
     display: none;
   }
+}
+
+/* --- Schedule --- */
+.event-schedule-section {
+  margin-top: var(--space-2xl);
+}
+
+.event-speakers-section {
+  margin-top: var(--space-2xl);
+}
+
+.event-section-note {
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.event-schedule {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.sched-time {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+  min-width: 100px;
+  font-weight: 500;
+  padding-top: 2px;
+}
+
+/* Break rows (coffee, lunch) */
+.sched-break {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.sched-break-label {
+  font-weight: 500;
+}
+
+.sched-social {
+  justify-content: center;
+  font-style: italic;
+}
+
+/* Intro row */
+.sched-intro-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+/* Session blocks */
+.sched-session {
+  border-left: 3px solid var(--color-primary);
+  padding: var(--space-md) var(--space-md) var(--space-md) var(--space-lg);
+  background: var(--color-bg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.sched-session-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.sched-session-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sched-session-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+}
+
+.sched-session-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.sched-session-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.sched-session-icons img {
+  height: 32px;
+  width: auto;
+  opacity: 0.5;
+}
+
+/* Individual talks */
+.sched-talks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sched-talk {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.sched-talk-icon {
+  height: 28px;
+  width: auto;
+  flex-shrink: 0;
+  margin-top: 3px;
+  opacity: 0.75;
+}
+
+.sched-talk-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sched-speaker {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.sched-title {
+  font-size: 0.88rem;
+  color: var(--color-text-light);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Synthesis block */
+.sched-synthesis {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-primary-light);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.sched-synthesis-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.sched-synthesis-speakers {
+  font-size: 0.88rem;
+  color: var(--color-text-light);
+  margin-top: 2px;
+}
+
+.sched-synthesis-note {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+@media (max-width: 600px) {
+  .sched-session-icons { display: none; }
+  .sched-time { min-width: 70px; }
 }
 
 /* --- Responsive: Tablet --- */
