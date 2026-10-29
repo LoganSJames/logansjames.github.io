@@ -100,4 +100,22 @@
     });
   }
 
+  // --- Previous Events Dropdown ---
+  var prevEvents = document.querySelector('.prev-events');
+
+  if (prevEvents) {
+    // Close when clicking anywhere outside the dropdown
+    document.addEventListener('click', function (e) {
+      if (prevEvents.open && !prevEvents.contains(e.target)) {
+        prevEvents.open = false;
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && prevEvents.open) {
+        prevEvents.open = false;
+      }
+    });
+  }
+
 })();

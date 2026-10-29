@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 340 142" style="enable-background:new 0 0 340 142;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#1C1A16;}
+	.st1{font-family:Arial, Helvetica, sans-serif;font-weight:bold;}
+	.st2{font-size:8px;}
+	.st3{fill:none;stroke:#4A4640;stroke-width:0.8;}
+	.st4{fill:#4A4640;}
+	.st5{font-family:Arial, Helvetica, sans-serif;}
+	.st6{font-size:6.5px;}
+	.st7{fill:none;stroke:#43113B;stroke-dasharray:3,2;enable-background:new    ;}
+	.st8{opacity:0.75;fill:#49977E;enable-background:new    ;}
+	.st9{fill:#43113B;}
+	.st10{font-size:9px;}
+	.st11{fill:none;stroke:#4A4640;stroke-width:0.9;}
+	.st12{fill:none;stroke:#4A4640;stroke-width:0.6;}
+	.st13{font-size:6px;}
+	.st14{opacity:0.4;fill:none;stroke:#4A4640;stroke-width:0.4;stroke-dasharray:2,3;enable-background:new    ;}
+	.st15{fill:none;stroke:#49977E;stroke-width:0.9;}
+	.st16{fill:#49977E;fill-opacity:0.18;stroke:#49977E;stroke-width:1.1;}
+	.st17{fill:none;stroke:#49977E;stroke-width:1.8;}
+	.st18{opacity:0.95;fill:#43113B;enable-background:new    ;}
+	.st19{fill:none;stroke:#43113B;stroke-width:0.8;stroke-dasharray:2,2;}
+</style>
+<text transform="matrix(1 0 0 1 12 12)" class="st0 st1 st2">Example individual</text>
+<line class="st3" x1="28" y1="18" x2="28" y2="107"/>
+<line class="st3" x1="28" y1="107" x2="150" y2="107"/>
+<text transform="matrix(1 0 0 1 69.8555 120)" class="st4 st5 st6">stimulus PC1</text>
+<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 20 83.5947)" class="st4 st5 st6">response PC1</text>
+<line class="st7" x1="30" y1="82" x2="148" y2="46"/>
+<circle class="st8" cx="39" cy="87" r="3"/>
+<circle class="st8" cx="49" cy="57" r="3"/>
+<circle class="st8" cx="59" cy="76" r="3"/>
+<circle class="st8" cx="69" cy="46" r="3"/>
+<circle class="st8" cx="79" cy="72" r="3"/>
+<circle class="st8" cx="89" cy="52" r="3"/>
+<circle class="st8" cx="99" cy="82" r="3"/>
+<circle class="st8" cx="109" cy="42" r="3"/>
+<circle class="st8" cx="119" cy="60" r="3"/>
+<circle class="st8" cx="129" cy="37" r="3"/>
+<circle class="st8" cx="139" cy="52" r="3"/>
+<circle class="st8" cx="53" cy="94" r="3"/>
+<circle class="st8" cx="105" cy="69" r="3"/>
+<circle class="st8" cx="83" cy="42" r="3"/>
+<circle class="st8" cx="125" cy="31" r="3"/>
+<text transform="matrix(1 0 0 1 94 104)" class="st9 st5 st10">r = 0.43</text>
+<line class="st11" x1="154" y1="62" x2="167" y2="62"/>
+<polygon class="st4" points="167,62 162,59 162,65 "/>
+<text transform="matrix(1 0 0 1 175 12)" class="st0 st1 st2">r values (all individuals)</text>
+<line class="st3" x1="175" y1="107" x2="337" y2="107"/>
+<line class="st12" x1="175" y1="107" x2="175" y2="111"/>
+<line class="st12" x1="256" y1="107" x2="256" y2="111"/>
+<line class="st12" x1="337" y1="107" x2="337" y2="111"/>
+<text transform="matrix(1 0 0 1 172.3325 118)" class="st4 st5 st13">-1</text>
+<text transform="matrix(1 0 0 1 254.3315 118)" class="st4 st5 st13">0</text>
+<text transform="matrix(1 0 0 1 335.3315 118)" class="st4 st5 st13">1</text>
+<text transform="matrix(1 0 0 1 246.2452 129)" class="st4 st5 st6">r value</text>
+<line class="st14" x1="256" y1="40" x2="256" y2="107"/>
+<line class="st15" x1="224" y1="72" x2="270" y2="72"/>
+<line class="st15" x1="224" y1="67" x2="224" y2="77"/>
+<rect x="270" y="65" class="st16" width="35" height="14"/>
+<line class="st17" x1="288" y1="65" x2="288" y2="79"/>
+<line class="st15" x1="305" y1="72" x2="317" y2="72"/>
+<line class="st15" x1="317" y1="67" x2="317" y2="77"/>
+<circle class="st8" cx="224" cy="72" r="3.5"/>
+<circle class="st8" cx="248" cy="66" r="3.5"/>
+<circle class="st8" cx="264" cy="76" r="3.5"/>
+<circle class="st8" cx="276" cy="64" r="3.5"/>
+<circle class="st8" cx="284" cy="74" r="3.5"/>
+<circle class="st18" cx="291" cy="68" r="4"/>
+<circle class="st8" cx="297" cy="78" r="3.5"/>
+<circle class="st8" cx="301" cy="66" r="3.5"/>
+<circle class="st8" cx="309" cy="72" r="3.5"/>
+<circle class="st8" cx="317" cy="69" r="3.5"/>
+<line class="st19" x1="291" y1="22" x2="291" y2="57"/>
+<polygon class="st9" points="291,58 288,52 294,52 "/>
+<text transform="matrix(1 0 0 1 264.0001 20)" class="st9 st1 st13">example individual</text>
+</svg>
